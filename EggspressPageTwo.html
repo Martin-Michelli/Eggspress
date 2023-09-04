@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eggspress second Page</title>
+    <link rel="stylesheet" href="pageTwo.css">
+
+</head>
+  <body>
+    <a class="gotopbtn" href="#"> <i class="fas fa-arrow-up"> 
+      <button class="button-3" role="button" id="manualButton"  onclick="manualButton()">Quit</button>
+    </i></a>
+
+
+    <div class="container">
+      <div class="slides slide1">
+        <img src="C:\Users\marty\Downloads\ESPT.1.png">
+        <h2>Load Egg into chamber</h2>
+      </div>
+      <div class="slides slide2">
+        <img src="C:\Users\marty\Downloads\ESPT.2.png">
+        <h2>Caution, surface is hot!</h2>
+      </div>
+      <div class="slides slide3">
+        <div class="hero">
+          <video autoplay loop muted plays-inline class="back-video">
+            <source src = "C:\Users\marty\Downloads\Egg_Third.mp4" type = "video/mp4">
+          </video> 
+        </div>
+          <h2> <!-- Toggles the servos -->
+
+            <button class="button-18" role="button" id="cookButton" onclick="cookButton()">Click to Cook</button>  
+          </h2>
+      </div>      
+    </div>
+
+    <!--Javascript for Cloud functions-->
+    <script type="text/javascript">
+      var deviceID    = "1e003d001347313137363331";
+      var accessToken = "b1ed47bcbe00bba852a261f76645e7cc47584bdf";
+      var setFunc = "setMode";  // Name of Particle Cloud Function
+      var cookFunc = "cookFunc";
+
+      function manualButton() {
+      newValue = "MANUAL";
+      var requestURL= "https://api.particle.io/v1/devices/" + deviceID + "/" + setFunc + "/";
+      $.post( requestURL, { params: newValue, access_token: accessToken });
+      const redirectBtn = document.getElementById("manualButton");
+      redirectBtn.addEventListener("click", function() {
+      window.location.href = "file:///C:/Users/marty/VSCodeProject/FinalProject_First/src/Eggspress.html";        
+      });
+      }
+
+      function cookButton() {
+      var requestURL= "https://api.particle.io/v1/devices/" + deviceID + "/" + cookFunc + "/";
+      newValue = "COOKING";
+      $.post( requestURL, { params: newValue, access_token: accessToken });
+      }
+
+    </script>
+  </body>
+</html>
